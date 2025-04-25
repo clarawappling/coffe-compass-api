@@ -37,8 +37,8 @@ let connect = async () => {
 
 
     server.post("/coffees", async (req, res) => {
-        let {name, description, origin, roast, arabica, roastery_id, img_src} = req.body;
-        let query = {name, description, origin, roast, arabica, roastery_id, img_src};
+        let {name, description, country_origin, roast, arabica, roastery_id, img_src} = req.body;
+        let query = {name, description, country_origin, roast, arabica, roastery_id, img_src};
         let result = await coffeesCollection.insertOne(query);
 
         res.status(201).json({
@@ -47,13 +47,11 @@ let connect = async () => {
         })
     })
 
-
-
     server.patch("/coffees/:id", async (req, res) => {
         let { id } = req.params;
-        let {name, description, origin, roast, arabica, roastery_id, img_src} = req.body;
+        let {name, description, country_origin, roast, arabica, roastery_id, img_src} = req.body;
         let query = { _id: new ObjectId(id)}
-        let result = await coffeesCollection.updateOne(query, {$set: {name, description, origin, roast, arabica, roastery_id, img_src}})
+        let result = await coffeesCollection.updateOne(query, {$set: {name, description, country_origin, roast, arabica, roastery_id, img_src}})
         res.status(201).json({
             message: "Coffee updated",
             updatedCount: result.modifiedCount
